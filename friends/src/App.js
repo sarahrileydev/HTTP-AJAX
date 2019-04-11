@@ -31,17 +31,54 @@ class App extends Component {
       .catch(err => console.log(err));
   };
 
+  // deleteFriend = id => {
+  //   axios
+  //     .delete(`http://localhost:5000/friends${id}`)
+  //     .then(res => {
+  //       this.setState({ friends: res.data });
+  //       // this.props.history.push("/friends");
+  //     })
+  //     .catch(err => console.log(err));
+  // };
+
+  deleteFriend = id => {
+    axios
+      .delete(`http://localhost:5000/friends/${id}`)
+      .then(response => {
+        this.setState({
+          friends: response.data,
+          deleteSuccess: true
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({
+          postSuccessMessage: "",
+          postError: ""
+        });
+      });
+  };
+
   render() {
     return (
       <div className="App">
         <Route
-        exact
-          path="/"
+          exact
+          path="/friends"
           render={props => (
             <FriendsForm {...props} addFriend={this.addFriend} />
           )}
         />
-        <FriendsList friends={this.state.friends} />
+        <Route
+          path="/friends"
+          render={props => (
+            <FriendsList
+              {...props}
+              friends={this.state.friends}
+              deleteFriend={this.deleteFriend}
+            />
+          )}
+        />
       </div>
     );
   }
