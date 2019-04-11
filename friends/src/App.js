@@ -3,6 +3,7 @@ import "./App.css";
 import axios from "axios";
 
 import FriendsList from "./components/FriendsList";
+import FriendsForm from "./components/FriendsForm";
 
 class App extends Component {
   constructor() {
@@ -25,7 +26,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <FriendsList friends={this.state.friends}/>
+        <FriendsForm />
+        <FriendsList friends={this.state.friends} />
       </div>
     );
   }
